@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nantian.user.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.nantian.user.domain.User">
+    <id column="ID_USER" jdbcType="VARCHAR" property="idUser" />
+    <result column="ID_USAP" jdbcType="VARCHAR" property="idUsap" />
+    <result column="NUM_MOB" jdbcType="VARCHAR" property="numMob" />
+    <result column="TXT_EML" jdbcType="VARCHAR" property="txtEml" />
+    <result column="ID_CARD" jdbcType="VARCHAR" property="idCard" />
+    <result column="ID_NOTES" jdbcType="VARCHAR" property="idNotes" />
+    <result column="ID_STAFF" jdbcType="VARCHAR" property="idStaff" />
+    <result column="NAM_USER" jdbcType="VARCHAR" property="namUser" />
+    <result column="COD_USER_SEX" jdbcType="VARCHAR" property="codUserSex" />
+    <result column="COD_USER_STATE" jdbcType="VARCHAR" property="codUserState" />
+    <result column="VLU_USER_PWD" jdbcType="VARCHAR" property="vluUserPwd" />
+    <result column="VLU_USER_SEQ" jdbcType="DECIMAL" property="vluUserSeq" />
+    <result column="COD_USER_TYPE" jdbcType="VARCHAR" property="codUserType" />
+    <result column="ID_ORG" jdbcType="VARCHAR" property="idOrg" />
+    <result column="NAM_ORG" jdbcType="VARCHAR" property="namOrg" />
+    <result column="ID_CRTOR" jdbcType="VARCHAR" property="idCrtor" />
+    <result column="NAM_CRTOR" jdbcType="VARCHAR" property="namCrtor" />
+    <result column="TIME_CRT" jdbcType="VARCHAR" property="timeCrt" />
+    <result column="CNT_LGIN_FAIL" jdbcType="DECIMAL" property="cntLginFail" />
+    <result column="TIME_LAST_LGIN_FAIL" jdbcType="VARCHAR" property="timeLastLginFail" />
+    <result column="TIME_LAST_MDF_PWD" jdbcType="VARCHAR" property="timeLastMdfPwd" />
+    <result column="TXT_HIST_PWD_LST" jdbcType="VARCHAR" property="txtHistPwdLst" />
+    <result column="NUM_PHO_1" jdbcType="VARCHAR" property="numPho1" />
+    <result column="NUM_PHO_2" jdbcType="VARCHAR" property="numPho2" />
+    <result column="TXT_USER_DSCR" jdbcType="VARCHAR" property="txtUserDscr" />
+    <result column="ID_TELLER" jdbcType="VARCHAR" property="idTeller" />
+    <result column="PWD_SALT" jdbcType="VARCHAR" property="pwdSalt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID_USER, ID_USAP, NUM_MOB, TXT_EML, ID_CARD, ID_NOTES, ID_STAFF, NAM_USER, COD_USER_SEX, 
+    COD_USER_STATE, VLU_USER_PWD, VLU_USER_SEQ, COD_USER_TYPE, ID_ORG, NAM_ORG, ID_CRTOR, 
+    NAM_CRTOR, TIME_CRT, CNT_LGIN_FAIL, TIME_LAST_LGIN_FAIL, TIME_LAST_MDF_PWD, TXT_HIST_PWD_LST, 
+    NUM_PHO_1, NUM_PHO_2, TXT_USER_DSCR, ID_TELLER, PWD_SALT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RBAC_USER
+    where ID_USER = #{idUser,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserName" resultType="com.nantian.user.domain.User">
+    select
+    <include refid="Base_Column_List" />
+    from RBAC_USER u
+    where u.nam_user = #{userName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from RBAC_USER
+    where ID_USER = #{idUser,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nantian.user.domain.User">
+    insert into RBAC_USER (ID_USER, ID_USAP, NUM_MOB, 
+      TXT_EML, ID_CARD, ID_NOTES, 
+      ID_STAFF, NAM_USER, COD_USER_SEX, 
+      COD_USER_STATE, VLU_USER_PWD, VLU_USER_SEQ, 
+      COD_USER_TYPE, ID_ORG, NAM_ORG, 
+      ID_CRTOR, NAM_CRTOR, TIME_CRT, 
+      CNT_LGIN_FAIL, TIME_LAST_LGIN_FAIL, TIME_LAST_MDF_PWD, 
+      TXT_HIST_PWD_LST, NUM_PHO_1, NUM_PHO_2, 
+      TXT_USER_DSCR, ID_TELLER, PWD_SALT
+      )
+    values (#{idUser,jdbcType=VARCHAR}, #{idUsap,jdbcType=VARCHAR}, #{numMob,jdbcType=VARCHAR}, 
+      #{txtEml,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{idNotes,jdbcType=VARCHAR}, 
+      #{idStaff,jdbcType=VARCHAR}, #{namUser,jdbcType=VARCHAR}, #{codUserSex,jdbcType=VARCHAR}, 
+      #{codUserState,jdbcType=VARCHAR}, #{vluUserPwd,jdbcType=VARCHAR}, #{vluUserSeq,jdbcType=DECIMAL}, 
+      #{codUserType,jdbcType=VARCHAR}, #{idOrg,jdbcType=VARCHAR}, #{namOrg,jdbcType=VARCHAR}, 
+      #{idCrtor,jdbcType=VARCHAR}, #{namCrtor,jdbcType=VARCHAR}, #{timeCrt,jdbcType=VARCHAR}, 
+      #{cntLginFail,jdbcType=DECIMAL}, #{timeLastLginFail,jdbcType=VARCHAR}, #{timeLastMdfPwd,jdbcType=VARCHAR}, 
+      #{txtHistPwdLst,jdbcType=VARCHAR}, #{numPho1,jdbcType=VARCHAR}, #{numPho2,jdbcType=VARCHAR}, 
+      #{txtUserDscr,jdbcType=VARCHAR}, #{idTeller,jdbcType=VARCHAR}, #{pwdSalt,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nantian.user.domain.User">
+    insert into RBAC_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idUser != null">
+        ID_USER,
+      </if>
+      <if test="idUsap != null">
+        ID_USAP,
+      </if>
+      <if test="numMob != null">
+        NUM_MOB,
+      </if>
+      <if test="txtEml != null">
+        TXT_EML,
+      </if>
+      <if test="idCard != null">
+        ID_CARD,
+      </if>
+      <if test="idNotes != null">
+        ID_NOTES,
+      </if>
+      <if test="idStaff != null">
+        ID_STAFF,
+      </if>
+      <if test="namUser != null">
+        NAM_USER,
+      </if>
+      <if test="codUserSex != null">
+        COD_USER_SEX,
+      </if>
+      <if test="codUserState != null">
+        COD_USER_STATE,
+      </if>
+      <if test="vluUserPwd != null">
+        VLU_USER_PWD,
+      </if>
+      <if test="vluUserSeq != null">
+        VLU_USER_SEQ,
+      </if>
+      <if test="codUserType != null">
+        COD_USER_TYPE,
+      </if>
+      <if test="idOrg != null">
+        ID_ORG,
+      </if>
+      <if test="namOrg != null">
+        NAM_ORG,
+      </if>
+      <if test="idCrtor != null">
+        ID_CRTOR,
+      </if>
+      <if test="namCrtor != null">
+        NAM_CRTOR,
+      </if>
+      <if test="timeCrt != null">
+        TIME_CRT,
+      </if>
+      <if test="cntLginFail != null">
+        CNT_LGIN_FAIL,
+      </if>
+      <if test="timeLastLginFail != null">
+        TIME_LAST_LGIN_FAIL,
+      </if>
+      <if test="timeLastMdfPwd != null">
+        TIME_LAST_MDF_PWD,
+      </if>
+      <if test="txtHistPwdLst != null">
+        TXT_HIST_PWD_LST,
+      </if>
+      <if test="numPho1 != null">
+        NUM_PHO_1,
+      </if>
+      <if test="numPho2 != null">
+        NUM_PHO_2,
+      </if>
+      <if test="txtUserDscr != null">
+        TXT_USER_DSCR,
+      </if>
+      <if test="idTeller != null">
+        ID_TELLER,
+      </if>
+      <if test="pwdSalt != null">
+        PWD_SALT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idUser != null">
+        #{idUser,jdbcType=VARCHAR},
+      </if>
+      <if test="idUsap != null">
+        #{idUsap,jdbcType=VARCHAR},
+      </if>
+      <if test="numMob != null">
+        #{numMob,jdbcType=VARCHAR},
+      </if>
+      <if test="txtEml != null">
+        #{txtEml,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idNotes != null">
+        #{idNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="idStaff != null">
+        #{idStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="namUser != null">
+        #{namUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserSex != null">
+        #{codUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserState != null">
+        #{codUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="vluUserPwd != null">
+        #{vluUserPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="vluUserSeq != null">
+        #{vluUserSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="codUserType != null">
+        #{codUserType,jdbcType=VARCHAR},
+      </if>
+      <if test="idOrg != null">
+        #{idOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="namOrg != null">
+        #{namOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="idCrtor != null">
+        #{idCrtor,jdbcType=VARCHAR},
+      </if>
+      <if test="namCrtor != null">
+        #{namCrtor,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCrt != null">
+        #{timeCrt,jdbcType=VARCHAR},
+      </if>
+      <if test="cntLginFail != null">
+        #{cntLginFail,jdbcType=DECIMAL},
+      </if>
+      <if test="timeLastLginFail != null">
+        #{timeLastLginFail,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLastMdfPwd != null">
+        #{timeLastMdfPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="txtHistPwdLst != null">
+        #{txtHistPwdLst,jdbcType=VARCHAR},
+      </if>
+      <if test="numPho1 != null">
+        #{numPho1,jdbcType=VARCHAR},
+      </if>
+      <if test="numPho2 != null">
+        #{numPho2,jdbcType=VARCHAR},
+      </if>
+      <if test="txtUserDscr != null">
+        #{txtUserDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="idTeller != null">
+        #{idTeller,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdSalt != null">
+        #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.domain.User">
+    update RBAC_USER
+    <set>
+      <if test="idUsap != null">
+        ID_USAP = #{idUsap,jdbcType=VARCHAR},
+      </if>
+      <if test="numMob != null">
+        NUM_MOB = #{numMob,jdbcType=VARCHAR},
+      </if>
+      <if test="txtEml != null">
+        TXT_EML = #{txtEml,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="idNotes != null">
+        ID_NOTES = #{idNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="idStaff != null">
+        ID_STAFF = #{idStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="namUser != null">
+        NAM_USER = #{namUser,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserSex != null">
+        COD_USER_SEX = #{codUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="codUserState != null">
+        COD_USER_STATE = #{codUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="vluUserPwd != null">
+        VLU_USER_PWD = #{vluUserPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="vluUserSeq != null">
+        VLU_USER_SEQ = #{vluUserSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="codUserType != null">
+        COD_USER_TYPE = #{codUserType,jdbcType=VARCHAR},
+      </if>
+      <if test="idOrg != null">
+        ID_ORG = #{idOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="namOrg != null">
+        NAM_ORG = #{namOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="idCrtor != null">
+        ID_CRTOR = #{idCrtor,jdbcType=VARCHAR},
+      </if>
+      <if test="namCrtor != null">
+        NAM_CRTOR = #{namCrtor,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCrt != null">
+        TIME_CRT = #{timeCrt,jdbcType=VARCHAR},
+      </if>
+      <if test="cntLginFail != null">
+        CNT_LGIN_FAIL = #{cntLginFail,jdbcType=DECIMAL},
+      </if>
+      <if test="timeLastLginFail != null">
+        TIME_LAST_LGIN_FAIL = #{timeLastLginFail,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLastMdfPwd != null">
+        TIME_LAST_MDF_PWD = #{timeLastMdfPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="txtHistPwdLst != null">
+        TXT_HIST_PWD_LST = #{txtHistPwdLst,jdbcType=VARCHAR},
+      </if>
+      <if test="numPho1 != null">
+        NUM_PHO_1 = #{numPho1,jdbcType=VARCHAR},
+      </if>
+      <if test="numPho2 != null">
+        NUM_PHO_2 = #{numPho2,jdbcType=VARCHAR},
+      </if>
+      <if test="txtUserDscr != null">
+        TXT_USER_DSCR = #{txtUserDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="idTeller != null">
+        ID_TELLER = #{idTeller,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdSalt != null">
+        PWD_SALT = #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_USER = #{idUser,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nantian.user.domain.User">
+    update RBAC_USER
+    set ID_USAP = #{idUsap,jdbcType=VARCHAR},
+      NUM_MOB = #{numMob,jdbcType=VARCHAR},
+      TXT_EML = #{txtEml,jdbcType=VARCHAR},
+      ID_CARD = #{idCard,jdbcType=VARCHAR},
+      ID_NOTES = #{idNotes,jdbcType=VARCHAR},
+      ID_STAFF = #{idStaff,jdbcType=VARCHAR},
+      NAM_USER = #{namUser,jdbcType=VARCHAR},
+      COD_USER_SEX = #{codUserSex,jdbcType=VARCHAR},
+      COD_USER_STATE = #{codUserState,jdbcType=VARCHAR},
+      VLU_USER_PWD = #{vluUserPwd,jdbcType=VARCHAR},
+      VLU_USER_SEQ = #{vluUserSeq,jdbcType=DECIMAL},
+      COD_USER_TYPE = #{codUserType,jdbcType=VARCHAR},
+      ID_ORG = #{idOrg,jdbcType=VARCHAR},
+      NAM_ORG = #{namOrg,jdbcType=VARCHAR},
+      ID_CRTOR = #{idCrtor,jdbcType=VARCHAR},
+      NAM_CRTOR = #{namCrtor,jdbcType=VARCHAR},
+      TIME_CRT = #{timeCrt,jdbcType=VARCHAR},
+      CNT_LGIN_FAIL = #{cntLginFail,jdbcType=DECIMAL},
+      TIME_LAST_LGIN_FAIL = #{timeLastLginFail,jdbcType=VARCHAR},
+      TIME_LAST_MDF_PWD = #{timeLastMdfPwd,jdbcType=VARCHAR},
+      TXT_HIST_PWD_LST = #{txtHistPwdLst,jdbcType=VARCHAR},
+      NUM_PHO_1 = #{numPho1,jdbcType=VARCHAR},
+      NUM_PHO_2 = #{numPho2,jdbcType=VARCHAR},
+      TXT_USER_DSCR = #{txtUserDscr,jdbcType=VARCHAR},
+      ID_TELLER = #{idTeller,jdbcType=VARCHAR},
+      PWD_SALT = #{pwdSalt,jdbcType=VARCHAR}
+    where ID_USER = #{idUser,jdbcType=VARCHAR}
+  </update>
+</mapper>

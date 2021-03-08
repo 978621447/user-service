@@ -1,0 +1,18 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    #    sentinel:
+    #      master: mymaster
+    #      nodes: redisapp01:26379,redisapp02:26379,redisapp03:26379
+    #    password: 123456
+    jedis:
+      pool:
+        max-active: 50
+        max-idle: 10
+        min-idle: 5
+        max-wait: 5000
+
+user-manager:
+  ip: 127.0.0.1
+  port: 18080

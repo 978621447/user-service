@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: arYHnH023mUKESX4ni7k/jyddZhSWtXF5GcD71qlAV1guQl4Buq17Joh9qP2IgtYVD0FaSps54KtwiSc6/HWYg==
+    password: d6E2cPQ9n/337WrokMOAD8jddt/tSCvtFJ2J7cdy2uqRDmcvqZ8tgKirjc1BSSZXaVEe7d5XgNVBiPIr6hVJbQ==
+    url: jdbc:oracle:thin:@152.136.149.175:1521/orcl
+    driver-class-name: oracle.jdbc.OracleDriver
+  redis:
+    host: localhost
+    port: 6379
+    #    sentinel:
+    #      master: mymaster
+    #      nodes: redisapp01:26379,redisapp02:26379,redisapp03:26379
+    #    password: 123456
+    jedis:
+      pool:
+        max-active: 50
+        max-idle: 10
+        min-idle: 5
+        max-wait: 5000

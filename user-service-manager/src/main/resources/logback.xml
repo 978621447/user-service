@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="LOG_FILE" value="/app/logs/user-service/manager" />
+	<property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [${springAppName}] [${PID:- }] --- [%t] %-40.40logger{39} %line : %m%n" />
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- 日志输出编码 -->
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+				<pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss}] [%class.%method] [%line] [%msg]%n %ex</pattern>
+				<!-- <charset>UTF-8</charset> -->
+			</layout>
+		</encoder>
+	</appender>
+
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_FILE}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_FILE}.log.%d{yyyy-MM-dd}.%i.gz</FileNamePattern>
+			<maxHistory>30</maxHistory>
+			<maxFileSize>50MB</maxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>${FILE_LOG_PATTERN}</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+
+	<!-- 日志输出级别 -->
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<logger name="file" level="info">
+		<appender-ref ref="file" />
+	</logger>
+
+</configuration>
