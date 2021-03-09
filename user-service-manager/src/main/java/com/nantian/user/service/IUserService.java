@@ -11,4 +11,6 @@ public interface IUserService {
     SampleUser getSampleUserById(String id);
 
     void registerUser(User user);
+
+    String login(User loginUser);
 }

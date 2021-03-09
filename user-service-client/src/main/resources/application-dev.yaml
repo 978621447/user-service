@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: localhost
+    host: 39.98.163.144
     port: 6379
     #    sentinel:
     #      master: mymaster

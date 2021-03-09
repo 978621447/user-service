@@ -1,5 +1,6 @@
 package com.nantian.user.service;
 
+import com.nantian.user.domain.LoginInfo;
 import com.nantian.user.domain.SampleUser;
 
 /**
@@ -9,6 +10,6 @@ public interface IUserService {
 
     SampleUser searchById(String id);
 
-    String login(String userName, String password);
+    LoginInfo getLoginInfo(String token);
 
 }

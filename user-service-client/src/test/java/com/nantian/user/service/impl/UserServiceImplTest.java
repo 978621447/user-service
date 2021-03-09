@@ -1,6 +1,7 @@
 package com.nantian.user.service.impl;
 
 
+import com.nantian.user.domain.LoginInfo;
 import com.nantian.user.domain.SampleUser;
 import com.nantian.user.service.IUserService;
 import com.nantian.user.util.JSONUtils;
@@ -29,6 +30,13 @@ public class UserServiceImplTest {
         String id = "1";
         SampleUser sampleUser = userService.searchById(id);
         logger.info(JSONUtils.objToJson(sampleUser));
+    }
+
+    @Test
+    public void getLoginInfo() {
+        String token = "e32fba83a6584b6c990cea548695ab66admin20210309162245";
+        LoginInfo loginInfo = userService.getLoginInfo(token);
+        logger.info(JSONUtils.objToJson(loginInfo));
     }
 
 }

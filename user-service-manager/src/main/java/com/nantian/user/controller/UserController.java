@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author WangJinYi 2021/3/6
  */
@@ -26,6 +29,21 @@ public class UserController {
     @GetMapping("searchById")
     public SampleUser searchById(@RequestParam(name = "id") String id) {
         return userService.getSampleUserById(id);
+    }
+
+    @PostMapping("login")
+    public JsonResp login(User loginUser) {
+        try {
+            assertNotNull(loginUser.getNamUser(), "用户名为空");
+            assertNotNull(loginUser.getVluUserPwd(), "密码为空");
+            String token = userService.login(loginUser);
+            return JsonResp.ok().putData("token", token);
+        } catch (BusinessException e) {
+            return JsonResp.failure(e.getMessage());
+        } catch (Exception e) {
+            logger.error("登录异常", e);
+            return JsonResp.failure("登录异常");
+        }
     }
 
     @PostMapping("registerUser")

@@ -42,7 +42,7 @@
     from RBAC_USER
     where ID_USER = #{idUser,jdbcType=VARCHAR}
   </select>
-  <select id="selectByUserName" resultType="com.nantian.user.domain.User">
+  <select id="selectByUserName" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from RBAC_USER u

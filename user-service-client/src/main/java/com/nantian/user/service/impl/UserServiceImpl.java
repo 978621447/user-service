@@ -1,7 +1,10 @@
 package com.nantian.user.service.impl;
 
+import com.nantian.user.domain.LoginInfo;
 import com.nantian.user.domain.SampleUser;
 import com.nantian.user.service.IUserService;
+import com.nantian.user.util.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class UserServiceImpl implements IUserService {
     @Value("${user-manager.port:18080}")
     private String port;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Override
     public SampleUser searchById(String id) {
         RestTemplate restTemplate = new RestTemplate();
@@ -32,10 +38,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public String login(String userName, String password) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject("http://localhost:18080/user/searchById", "", null);
-        return null;
+    public LoginInfo getLoginInfo(String token) {
+        return(LoginInfo) redisUtil.get(token);
     }
 
 }
