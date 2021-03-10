@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public LoginInfo getLoginInfo(String token) {
-        return(LoginInfo) redisUtil.get(token);
+        return (LoginInfo) redisUtil.get(token);
     }
 
 }

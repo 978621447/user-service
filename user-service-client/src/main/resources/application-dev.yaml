@@ -12,6 +12,8 @@ spring:
         max-idle: 10
         min-idle: 5
         max-wait: 5000
+url:
+  login: http://www.baidu.com
 
 user-manager:
   ip: 127.0.0.1
