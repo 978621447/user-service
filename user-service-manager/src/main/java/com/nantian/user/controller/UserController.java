@@ -5,6 +5,11 @@ import com.nantian.user.domain.SampleUser;
 import com.nantian.user.domain.User;
 import com.nantian.user.exception.BusinessException;
 import com.nantian.user.service.IUserService;
+import com.nantian.user.util.RedisUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,7 @@ import java.util.Map;
 /**
  * @author WangJinYi 2021/3/6
  */
+@Api(tags = "用户管理相关接口")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -26,11 +32,39 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @GetMapping("searchById")
     public SampleUser searchById(@RequestParam(name = "id") String id) {
         return userService.getSampleUserById(id);
     }
 
+    @ApiOperation("添加用户的接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namUser", value = "用户账号", defaultValue = "admin", required = true),
+            @ApiImplicitParam(name = "vluUserPwd", value = "用户密码", defaultValue = "123456", required = true)
+    })
+    @PostMapping("registerUser")
+    public JsonResp registerUser(User user) {
+        try {
+            assertNotNull(user.getNamUser(), "用户名为空");
+            assertNotNull(user.getVluUserPwd(), "密码为空");
+            userService.registerUser(user);
+        } catch (BusinessException e) {
+            return JsonResp.failure(e.getMessage());
+        } catch (Exception e) {
+            logger.error("用户注册异常", e);
+            return JsonResp.failure("用户注册异常");
+        }
+        return JsonResp.ok();
+    }
+
+    @ApiOperation("用户登录接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namUser", value = "用户账号", defaultValue = "admin", required = true),
+            @ApiImplicitParam(name = "vluUserPwd", value = "用户密码", defaultValue = "123456", required = true)
+    })
     @PostMapping("login")
     public JsonResp login(User loginUser) {
         try {
@@ -46,19 +80,21 @@ public class UserController {
         }
     }
 
-    @PostMapping("registerUser")
-    public JsonResp registerUser(User user) {
+    @ApiOperation("用户登出接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token", defaultValue = "admin", required = true)
+    })
+    @PostMapping("logout")
+    public JsonResp logout(String token) {
         try {
-            assertNotNull(user.getNamUser(), "用户名为空");
-            assertNotNull(user.getVluUserPwd(), "密码为空");
-            userService.registerUser(user);
+            redisUtil.del(token);
+            return JsonResp.ok("退出登录成功！");
         } catch (BusinessException e) {
             return JsonResp.failure(e.getMessage());
         } catch (Exception e) {
-            logger.error("用户注册异常", e);
-            return JsonResp.failure("用户注册异常");
+            logger.error("退出登录异常", e);
+            return JsonResp.failure("退出登录异常");
         }
-        return JsonResp.ok();
     }
 
     private void assertNotNull(Object o, String msg) {
