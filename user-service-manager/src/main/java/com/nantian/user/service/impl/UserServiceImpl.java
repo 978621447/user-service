@@ -66,7 +66,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     private void validLogin(User loginUser, User user) {
-        if (!truePwd(loginUser.getVluUserPwd(), user.getVluUserPwd(), user.getPwdSalt())) {
+        if (user == null) {
+            throw new BusinessException("用户不存在！");
+        } else if (!truePwd(loginUser.getVluUserPwd(), user.getVluUserPwd(), user.getPwdSalt())) {
             throw new BusinessException("用户名/密码错误！");
         } else if (!"0".equals(user.getCodUserState())) {
             throw new BusinessException("用户已被冻结！");

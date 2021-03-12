@@ -82,13 +82,17 @@ public class UserController {
 
     @ApiOperation("用户登出接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "token", value = "token", defaultValue = "admin", required = true)
+            @ApiImplicitParam(name = "token", value = "token", defaultValue = "ac1c4336bcf241929f92da7eb6abc5d4admin20210311214857", required = true)
     })
     @PostMapping("logout")
     public JsonResp logout(String token) {
         try {
-            redisUtil.del(token);
-            return JsonResp.ok("退出登录成功！");
+            if (redisUtil.get(token) == null) {
+                return JsonResp.failure("用户令牌无效，退出登录失败！");
+            } else {
+                redisUtil.del(token);
+                return JsonResp.ok("退出登录成功！");
+            }
         } catch (BusinessException e) {
             return JsonResp.failure(e.getMessage());
         } catch (Exception e) {
