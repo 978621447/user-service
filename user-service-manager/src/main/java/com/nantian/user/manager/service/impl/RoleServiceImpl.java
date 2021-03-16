@@ -58,4 +58,22 @@ public class RoleServiceImpl implements IRoleService {
         roleInfoMapper.insertSelective(record);
     }
 
+    @Override
+    public void updateRoleInfo(RoleInfoDTO roleInfoDTO) {
+        RoleInfo record = new RoleInfo();
+        record.setIdRole(roleInfoDTO.getRoleId());
+        record.setNamRole(roleInfoDTO.getName());
+        record.setCodRoleState(roleInfoDTO.getState());
+        record.setIdParntRole(roleInfoDTO.getPid());
+        record.setIdRes(roleInfoDTO.getAppId());
+        record.setIdOrg(roleInfoDTO.getOrgId());
+        record.setTxtRoleDscr(roleInfoDTO.getDescription());
+        roleInfoMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public void deleteRole(String roleId) {
+        roleInfoMapper.deleteByPrimaryKey(roleId);
+    }
+
 }

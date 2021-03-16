@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
  */
 public class RoleInfoDTO {
 
+    @ApiModelProperty("角色id")
+    private String roleId;
     @ApiModelProperty("角色名称")
     private String name;
     @ApiModelProperty("1:启用，0:停用")
@@ -27,6 +29,14 @@ public class RoleInfoDTO {
     private String resourceCode;
     @ApiModelProperty("描述")
     private String description;
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
     public String getAppId() {
         return appId;

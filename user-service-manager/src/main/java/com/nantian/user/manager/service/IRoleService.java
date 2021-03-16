@@ -12,4 +12,8 @@ public interface IRoleService {
     Map<String, Object> list(RoleInfoQO roleInfoQO);
 
     void saveRoleInfo(RoleInfoDTO roleInfoDTO, LoginInfo loginInfo);
+
+    void updateRoleInfo(RoleInfoDTO roleInfoDTO);
+
+    void deleteRole(String roleId);
 }

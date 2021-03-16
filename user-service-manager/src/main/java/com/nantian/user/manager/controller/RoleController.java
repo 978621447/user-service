@@ -65,4 +65,35 @@ public class RoleController {
         }
     }
 
+    @ApiOperation("编辑角色")
+    @PostMapping("update")
+    public JsonResp update(RoleInfoDTO roleInfoDTO) {
+        try {
+            roleService.updateRoleInfo(roleInfoDTO);
+            return JsonResp.ok();
+        } catch (BusinessException e) {
+            return JsonResp.failure(e.getMessage());
+        } catch (Exception e) {
+            logger.error("编辑角色异常", e);
+            return JsonResp.failure("编辑角色异常");
+        }
+    }
+
+    @ApiOperation("删除角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", defaultValue = "0", required = true)
+    })
+    @PostMapping("delete")
+    public JsonResp delete(String roleId) {
+        try {
+            roleService.deleteRole(roleId);
+            return JsonResp.ok();
+        } catch (BusinessException e) {
+            return JsonResp.failure(e.getMessage());
+        } catch (Exception e) {
+            logger.error("删除角色异常", e);
+            return JsonResp.failure("删除角色异常");
+        }
+    }
+
 }
