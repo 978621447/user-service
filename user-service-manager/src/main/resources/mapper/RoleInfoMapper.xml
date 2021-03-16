@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nantian.user.manager.dao.RoleInfoMapper">
+    <resultMap id="BaseResultMap" type="com.nantian.user.api.domain.RoleInfo">
+        <id column="ID_ROLE" jdbcType="VARCHAR" property="idRole"/>
+        <result column="NAM_ROLE" jdbcType="VARCHAR" property="namRole"/>
+        <result column="COD_ROLE_STATE" jdbcType="VARCHAR" property="codRoleState"/>
+        <result column="ID_PARNT_ROLE" jdbcType="VARCHAR" property="idParntRole"/>
+        <result column="VLU_ROLE_SEQ" jdbcType="DECIMAL" property="vluRoleSeq"/>
+        <result column="COD_ROLE_TYPE" jdbcType="VARCHAR" property="codRoleType"/>
+        <result column="ID_ORG" jdbcType="VARCHAR" property="idOrg"/>
+        <result column="ID_CRTOR" jdbcType="VARCHAR" property="idCrtor"/>
+        <result column="NAM_CRTOR" jdbcType="VARCHAR" property="namCrtor"/>
+        <result column="TIME_CRT" jdbcType="VARCHAR" property="timeCrt"/>
+        <result column="TXT_ROLE_DSCR" jdbcType="VARCHAR" property="txtRoleDscr"/>
+        <result column="IND_RES_TYP" jdbcType="VARCHAR" property="indResTyp"/>
+        <result column="ID_RES" jdbcType="VARCHAR" property="idRes"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID_ROLE, NAM_ROLE, COD_ROLE_STATE, ID_PARNT_ROLE, VLU_ROLE_SEQ, COD_ROLE_TYPE, ID_ORG, 
+    ID_CRTOR, NAM_CRTOR, TIME_CRT, TXT_ROLE_DSCR, IND_RES_TYP, ID_RES
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from RBAC_ROLE_INFO
+        where ID_ROLE = #{idRole,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from RBAC_ROLE_INFO r
+        where 1=1
+        <if test="name != null">
+            and NAM_ROLE = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="state != null">
+            and COD_ROLE_STATE = #{state,jdbcType=VARCHAR}
+        </if>
+        <if test="appId != null">
+            and ID_RES = #{appId,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from RBAC_ROLE_INFO
+    where ID_ROLE = #{idRole,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.nantian.user.api.domain.RoleInfo">
+    insert into RBAC_ROLE_INFO (ID_ROLE, NAM_ROLE, COD_ROLE_STATE, 
+      ID_PARNT_ROLE, VLU_ROLE_SEQ, COD_ROLE_TYPE, 
+      ID_ORG, ID_CRTOR, NAM_CRTOR, 
+      TIME_CRT, TXT_ROLE_DSCR, IND_RES_TYP, 
+      ID_RES)
+    values (#{idRole,jdbcType=VARCHAR}, #{namRole,jdbcType=VARCHAR}, #{codRoleState,jdbcType=VARCHAR}, 
+      #{idParntRole,jdbcType=VARCHAR}, #{vluRoleSeq,jdbcType=DECIMAL}, #{codRoleType,jdbcType=VARCHAR}, 
+      #{idOrg,jdbcType=VARCHAR}, #{idCrtor,jdbcType=VARCHAR}, #{namCrtor,jdbcType=VARCHAR}, 
+      #{timeCrt,jdbcType=VARCHAR}, #{txtRoleDscr,jdbcType=VARCHAR}, #{indResTyp,jdbcType=VARCHAR}, 
+      #{idRes,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.nantian.user.api.domain.RoleInfo">
+        insert into RBAC_ROLE_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="idRole != null">
+                ID_ROLE,
+            </if>
+            <if test="namRole != null">
+                NAM_ROLE,
+            </if>
+            <if test="codRoleState != null">
+                COD_ROLE_STATE,
+            </if>
+            <if test="idParntRole != null">
+                ID_PARNT_ROLE,
+            </if>
+            <if test="vluRoleSeq != null">
+                VLU_ROLE_SEQ,
+            </if>
+            <if test="codRoleType != null">
+                COD_ROLE_TYPE,
+            </if>
+            <if test="idOrg != null">
+                ID_ORG,
+            </if>
+            <if test="idCrtor != null">
+                ID_CRTOR,
+            </if>
+            <if test="namCrtor != null">
+                NAM_CRTOR,
+            </if>
+            <if test="timeCrt != null">
+                TIME_CRT,
+            </if>
+            <if test="txtRoleDscr != null">
+                TXT_ROLE_DSCR,
+            </if>
+            <if test="indResTyp != null">
+                IND_RES_TYP,
+            </if>
+            <if test="idRes != null">
+                ID_RES,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="idRole != null">
+                #{idRole,jdbcType=VARCHAR},
+            </if>
+            <if test="namRole != null">
+                #{namRole,jdbcType=VARCHAR},
+            </if>
+            <if test="codRoleState != null">
+                #{codRoleState,jdbcType=VARCHAR},
+            </if>
+            <if test="idParntRole != null">
+                #{idParntRole,jdbcType=VARCHAR},
+            </if>
+            <if test="vluRoleSeq != null">
+                #{vluRoleSeq,jdbcType=DECIMAL},
+            </if>
+            <if test="codRoleType != null">
+                #{codRoleType,jdbcType=VARCHAR},
+            </if>
+            <if test="idOrg != null">
+                #{idOrg,jdbcType=VARCHAR},
+            </if>
+            <if test="idCrtor != null">
+                #{idCrtor,jdbcType=VARCHAR},
+            </if>
+            <if test="namCrtor != null">
+                #{namCrtor,jdbcType=VARCHAR},
+            </if>
+            <if test="timeCrt != null">
+                #{timeCrt,jdbcType=VARCHAR},
+            </if>
+            <if test="txtRoleDscr != null">
+                #{txtRoleDscr,jdbcType=VARCHAR},
+            </if>
+            <if test="indResTyp != null">
+                #{indResTyp,jdbcType=VARCHAR},
+            </if>
+            <if test="idRes != null">
+                #{idRes,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.api.domain.RoleInfo">
+        update RBAC_ROLE_INFO
+        <set>
+            <if test="namRole != null">
+                NAM_ROLE = #{namRole,jdbcType=VARCHAR},
+            </if>
+            <if test="codRoleState != null">
+                COD_ROLE_STATE = #{codRoleState,jdbcType=VARCHAR},
+            </if>
+            <if test="idParntRole != null">
+                ID_PARNT_ROLE = #{idParntRole,jdbcType=VARCHAR},
+            </if>
+            <if test="vluRoleSeq != null">
+                VLU_ROLE_SEQ = #{vluRoleSeq,jdbcType=DECIMAL},
+            </if>
+            <if test="codRoleType != null">
+                COD_ROLE_TYPE = #{codRoleType,jdbcType=VARCHAR},
+            </if>
+            <if test="idOrg != null">
+                ID_ORG = #{idOrg,jdbcType=VARCHAR},
+            </if>
+            <if test="idCrtor != null">
+                ID_CRTOR = #{idCrtor,jdbcType=VARCHAR},
+            </if>
+            <if test="namCrtor != null">
+                NAM_CRTOR = #{namCrtor,jdbcType=VARCHAR},
+            </if>
+            <if test="timeCrt != null">
+                TIME_CRT = #{timeCrt,jdbcType=VARCHAR},
+            </if>
+            <if test="txtRoleDscr != null">
+                TXT_ROLE_DSCR = #{txtRoleDscr,jdbcType=VARCHAR},
+            </if>
+            <if test="indResTyp != null">
+                IND_RES_TYP = #{indResTyp,jdbcType=VARCHAR},
+            </if>
+            <if test="idRes != null">
+                ID_RES = #{idRes,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID_ROLE = #{idRole,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.nantian.user.api.domain.RoleInfo">
+    update RBAC_ROLE_INFO
+    set NAM_ROLE = #{namRole,jdbcType=VARCHAR},
+      COD_ROLE_STATE = #{codRoleState,jdbcType=VARCHAR},
+      ID_PARNT_ROLE = #{idParntRole,jdbcType=VARCHAR},
+      VLU_ROLE_SEQ = #{vluRoleSeq,jdbcType=DECIMAL},
+      COD_ROLE_TYPE = #{codRoleType,jdbcType=VARCHAR},
+      ID_ORG = #{idOrg,jdbcType=VARCHAR},
+      ID_CRTOR = #{idCrtor,jdbcType=VARCHAR},
+      NAM_CRTOR = #{namCrtor,jdbcType=VARCHAR},
+      TIME_CRT = #{timeCrt,jdbcType=VARCHAR},
+      TXT_ROLE_DSCR = #{txtRoleDscr,jdbcType=VARCHAR},
+      IND_RES_TYP = #{indResTyp,jdbcType=VARCHAR},
+      ID_RES = #{idRes,jdbcType=VARCHAR}
+    where ID_ROLE = #{idRole,jdbcType=VARCHAR}
+  </update>
+</mapper>

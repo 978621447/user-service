@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nantian.user.dao.SampleUserMapper">
-  <resultMap id="BaseResultMap" type="com.nantian.user.domain.SampleUser">
+<mapper namespace="com.nantian.user.manager.dao.SampleUserMapper">
+  <resultMap id="BaseResultMap" type="com.nantian.user.api.domain.SampleUser">
     <id column="ID" jdbcType="VARCHAR" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="GENDER" jdbcType="VARCHAR" property="gender" />
@@ -21,13 +21,13 @@
     delete from SAMPLE_USER
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.nantian.user.domain.SampleUser">
+  <insert id="insert" parameterType="com.nantian.user.api.domain.SampleUser">
     insert into SAMPLE_USER (ID, NAME, GENDER, 
       PHONENO, EMAIL)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
       #{phoneno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.nantian.user.domain.SampleUser">
+  <insert id="insertSelective" parameterType="com.nantian.user.api.domain.SampleUser">
     insert into SAMPLE_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.domain.SampleUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.api.domain.SampleUser">
     update SAMPLE_USER
     <set>
       <if test="name != null">
@@ -82,7 +82,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nantian.user.domain.SampleUser">
+  <update id="updateByPrimaryKey" parameterType="com.nantian.user.api.domain.SampleUser">
     update SAMPLE_USER
     set NAME = #{name,jdbcType=VARCHAR},
       GENDER = #{gender,jdbcType=VARCHAR},

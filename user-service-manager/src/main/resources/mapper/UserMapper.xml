@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nantian.user.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.nantian.user.domain.User">
+<mapper namespace="com.nantian.user.manager.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.nantian.user.api.domain.User">
     <id column="ID_USER" jdbcType="VARCHAR" property="idUser" />
     <result column="ID_USAP" jdbcType="VARCHAR" property="idUsap" />
     <result column="NUM_MOB" jdbcType="VARCHAR" property="numMob" />
@@ -52,7 +52,7 @@
     delete from RBAC_USER
     where ID_USER = #{idUser,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.nantian.user.domain.User">
+  <insert id="insert" parameterType="com.nantian.user.api.domain.User">
     insert into RBAC_USER (ID_USER, ID_USAP, NUM_MOB, 
       TXT_EML, ID_CARD, ID_NOTES, 
       ID_STAFF, NAM_USER, COD_USER_SEX, 
@@ -74,7 +74,7 @@
       #{txtUserDscr,jdbcType=VARCHAR}, #{idTeller,jdbcType=VARCHAR}, #{pwdSalt,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.nantian.user.domain.User">
+  <insert id="insertSelective" parameterType="com.nantian.user.api.domain.User">
     insert into RBAC_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="idUser != null">
@@ -243,7 +243,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.domain.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.api.domain.User">
     update RBAC_USER
     <set>
       <if test="idUsap != null">
@@ -327,7 +327,7 @@
     </set>
     where ID_USER = #{idUser,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nantian.user.domain.User">
+  <update id="updateByPrimaryKey" parameterType="com.nantian.user.api.domain.User">
     update RBAC_USER
     set ID_USAP = #{idUsap,jdbcType=VARCHAR},
       NUM_MOB = #{numMob,jdbcType=VARCHAR},

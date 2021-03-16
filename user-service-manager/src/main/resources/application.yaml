@@ -17,3 +17,8 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+pagehelper:
+  helper-dialect: oracle
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
