@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author WangJinYi 2021/3/8
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.nantian.user")
 public class UserClientStarter {
 
     public static void main(String[] args) {

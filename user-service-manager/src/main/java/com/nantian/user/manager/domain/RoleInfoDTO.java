@@ -17,7 +17,7 @@ public class RoleInfoDTO {
     private String appId;
     @ApiModelProperty("机构编码")
     private String orgId;
-    @ApiModelProperty("排序")
+    @ApiModelProperty(value = "排序", example = "1")
     private Integer seq;
     @ApiModelProperty("类型")
     private String type;

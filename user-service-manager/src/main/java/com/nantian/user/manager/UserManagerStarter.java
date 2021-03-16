@@ -3,11 +3,12 @@ package com.nantian.user.manager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author WangJinYi 2021/3/6
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.nantian.user")
 @MapperScan("com.nantian.user.**.dao")
 public class UserManagerStarter {
 

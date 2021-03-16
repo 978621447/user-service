@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 /**
  * @author WangJinYi 2021/3/6
  */
-@Service
+@Service("managerUserService")
 public class UserServiceImpl implements IUserService {
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);

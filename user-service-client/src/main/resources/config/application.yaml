@@ -1,4 +1,10 @@
 spring:
+  profiles:
+    active: dev
+  application:
+    name: user-service-client
+  main:
+    allow-bean-definition-overriding: true
   redis:
     host: 39.98.163.144
     port: 6379

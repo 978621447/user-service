@@ -15,7 +15,7 @@
 
         <dependency>
             <groupId>com.nantian.user</groupId>
-            <artifactId>user-service-api</artifactId>
+            <artifactId>user-service-client</artifactId>
             <version>1.0.0</version>
         </dependency>
 

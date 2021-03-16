@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author WangJinYi 2021/3/8
  */
-@Service
+@Service("clientUserService")
 public class UserServiceImpl implements IUserService {
 
     @Value("${user-manager.ip:127.0.0.1}")

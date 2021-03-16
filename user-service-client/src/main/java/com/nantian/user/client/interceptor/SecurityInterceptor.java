@@ -29,6 +29,9 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+        if (isWhiteUrl(request.getRequestURL().toString())) {
+            return true;
+        }
         String token = request.getHeader("token");
         if (token == null) {
             token = (String) request.getSession().getAttribute("token");
@@ -41,6 +44,25 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             logger.debug("token = {}", token);
             return true;
         }
+    }
+
+    /**
+     * 白名单url不拦截
+     *
+     * @param url url
+     * @return true for white url
+     */
+    private boolean isWhiteUrl(String url) {
+        String lowerUrl = url.toLowerCase();
+        return url.contains("error")
+                || url.contains("login")
+                || url.contains("registerUser")
+                || url.contains("saveToken")
+                || lowerUrl.contains("swagger")
+                || lowerUrl.contains("webjars")
+                || lowerUrl.contains("v2")
+                || url.endsWith("/manager/")
+                || url.endsWith("/manager/csrf");
     }
 
 }

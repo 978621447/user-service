@@ -15,9 +15,9 @@ public class RoleInfoQO {
     private String state;
     @ApiModelProperty("系统编号")
     private String appId;
-    @ApiModelProperty("每页条数")
+    @ApiModelProperty(value = "每页条数", example = "10")
     private Integer limit;
-    @ApiModelProperty("页码")
+    @ApiModelProperty(value = "页码", example = "1")
     private Integer page;
 
     public String getName() {

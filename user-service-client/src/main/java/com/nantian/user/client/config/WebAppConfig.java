@@ -19,10 +19,6 @@ public class WebAppConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //注册自己的拦截器并设置拦截的请求路径
         registry.addInterceptor(securityInterceptor)
-                .excludePathPatterns("/error")
-                .excludePathPatterns("/login**")
-                .excludePathPatterns("/register**")
-                .excludePathPatterns("/saveToken**")
                 .addPathPatterns("/**");
     }
 
