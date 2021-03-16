@@ -22,6 +22,7 @@ public class WebAppConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/login**")
                 .excludePathPatterns("/register**")
+                .excludePathPatterns("/saveToken**")
                 .addPathPatterns("/**");
     }
 

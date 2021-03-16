@@ -30,6 +30,9 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         String token = request.getHeader("token");
+        if (token == null) {
+            token = (String) request.getSession().getAttribute("token");
+        }
         LoginInfo loginInfo = userService.getLoginInfo(token);
         if (loginInfo == null) {
             response.sendRedirect(loginUrl);
