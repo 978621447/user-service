@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nantian.user.manager.dao.MenuInfoMapper">
+  <resultMap id="BaseResultMap" type="com.nantian.user.api.domain.MenuInfo">
+    <id column="ID_MENU" jdbcType="VARCHAR" property="idMenu" />
+    <result column="NAM_MENU" jdbcType="VARCHAR" property="namMenu" />
+    <result column="COD_PARNT_MENU" jdbcType="VARCHAR" property="codParntMenu" />
+    <result column="COD_MENU_STATE" jdbcType="DECIMAL" property="codMenuState" />
+    <result column="VLU_MENU_SEQ" jdbcType="DECIMAL" property="vluMenuSeq" />
+    <result column="COD_MENU_TYPE" jdbcType="VARCHAR" property="codMenuType" />
+    <result column="TXT_MENU_URL" jdbcType="VARCHAR" property="txtMenuUrl" />
+    <result column="TXT_MENU_DSCR" jdbcType="VARCHAR" property="txtMenuDscr" />
+    <result column="VLU_MENU_ICON" jdbcType="VARCHAR" property="vluMenuIcon" />
+    <result column="IND_DLGT" jdbcType="VARCHAR" property="indDlgt" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID_MENU, NAM_MENU, COD_PARNT_MENU, COD_MENU_STATE, VLU_MENU_SEQ, COD_MENU_TYPE, TXT_MENU_URL, 
+    TXT_MENU_DSCR, VLU_MENU_ICON, IND_DLGT, CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RBAC_MENU_INFO
+    where ID_MENU = #{idMenu,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List" />
+    from RBAC_MENU_INFO
+    where 1=1
+    <if test="idMenu != null">
+      and ID_MENU = #{idMenu,jdbcType=VARCHAR}
+    </if>
+    <if test="namMenu != null">
+      and NAM_MENU = #{namMenu,jdbcType=VARCHAR}
+    </if>
+    <if test="codParntMenu != null">
+      and COD_PARNT_MENU = #{codParntMenu,jdbcType=VARCHAR}
+    </if>
+    <if test="codMenuState != null">
+      and COD_MENU_STATE = #{codMenuState,jdbcType=DECIMAL}
+    </if>
+    <if test="vluMenuSeq != null">
+      and VLU_MENU_SEQ = #{vluMenuSeq,jdbcType=DECIMAL}
+    </if>
+    <if test="codMenuType != null">
+      and COD_MENU_TYPE = #{codMenuType,jdbcType=VARCHAR}
+    </if>
+    <if test="txtMenuUrl != null">
+      and TXT_MENU_URL = #{txtMenuUrl,jdbcType=VARCHAR}
+    </if>
+    <if test="txtMenuDscr != null">
+      and TXT_MENU_DSCR = #{txtMenuDscr,jdbcType=VARCHAR}
+    </if>
+    <if test="vluMenuIcon != null">
+      and VLU_MENU_ICON = #{vluMenuIcon,jdbcType=VARCHAR}
+    </if>
+    <if test="indDlgt != null">
+      and IND_DLGT = #{indDlgt,jdbcType=VARCHAR}
+    </if>
+    <if test="code != null">
+      and code = #{code,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from RBAC_MENU_INFO
+    where ID_MENU = #{idMenu,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nantian.user.api.domain.MenuInfo">
+    insert into RBAC_MENU_INFO (ID_MENU, NAM_MENU, COD_PARNT_MENU, 
+      COD_MENU_STATE, VLU_MENU_SEQ, COD_MENU_TYPE, 
+      TXT_MENU_URL, TXT_MENU_DSCR, VLU_MENU_ICON, 
+      IND_DLGT, CODE)
+    values (#{idMenu,jdbcType=VARCHAR}, #{namMenu,jdbcType=VARCHAR}, #{codParntMenu,jdbcType=VARCHAR}, 
+      #{codMenuState,jdbcType=DECIMAL}, #{vluMenuSeq,jdbcType=DECIMAL}, #{codMenuType,jdbcType=VARCHAR}, 
+      #{txtMenuUrl,jdbcType=VARCHAR}, #{txtMenuDscr,jdbcType=VARCHAR}, #{vluMenuIcon,jdbcType=VARCHAR}, 
+      #{indDlgt,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nantian.user.api.domain.MenuInfo">
+    insert into RBAC_MENU_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idMenu != null">
+        ID_MENU,
+      </if>
+      <if test="namMenu != null">
+        NAM_MENU,
+      </if>
+      <if test="codParntMenu != null">
+        COD_PARNT_MENU,
+      </if>
+      <if test="codMenuState != null">
+        COD_MENU_STATE,
+      </if>
+      <if test="vluMenuSeq != null">
+        VLU_MENU_SEQ,
+      </if>
+      <if test="codMenuType != null">
+        COD_MENU_TYPE,
+      </if>
+      <if test="txtMenuUrl != null">
+        TXT_MENU_URL,
+      </if>
+      <if test="txtMenuDscr != null">
+        TXT_MENU_DSCR,
+      </if>
+      <if test="vluMenuIcon != null">
+        VLU_MENU_ICON,
+      </if>
+      <if test="indDlgt != null">
+        IND_DLGT,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idMenu != null">
+        #{idMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="namMenu != null">
+        #{namMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="codParntMenu != null">
+        #{codParntMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="codMenuState != null">
+        #{codMenuState,jdbcType=DECIMAL},
+      </if>
+      <if test="vluMenuSeq != null">
+        #{vluMenuSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="codMenuType != null">
+        #{codMenuType,jdbcType=VARCHAR},
+      </if>
+      <if test="txtMenuUrl != null">
+        #{txtMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="txtMenuDscr != null">
+        #{txtMenuDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="vluMenuIcon != null">
+        #{vluMenuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="indDlgt != null">
+        #{indDlgt,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nantian.user.api.domain.MenuInfo">
+    update RBAC_MENU_INFO
+    <set>
+      <if test="namMenu != null">
+        NAM_MENU = #{namMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="codParntMenu != null">
+        COD_PARNT_MENU = #{codParntMenu,jdbcType=VARCHAR},
+      </if>
+      <if test="codMenuState != null">
+        COD_MENU_STATE = #{codMenuState,jdbcType=DECIMAL},
+      </if>
+      <if test="vluMenuSeq != null">
+        VLU_MENU_SEQ = #{vluMenuSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="codMenuType != null">
+        COD_MENU_TYPE = #{codMenuType,jdbcType=VARCHAR},
+      </if>
+      <if test="txtMenuUrl != null">
+        TXT_MENU_URL = #{txtMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="txtMenuDscr != null">
+        TXT_MENU_DSCR = #{txtMenuDscr,jdbcType=VARCHAR},
+      </if>
+      <if test="vluMenuIcon != null">
+        VLU_MENU_ICON = #{vluMenuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="indDlgt != null">
+        IND_DLGT = #{indDlgt,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_MENU = #{idMenu,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nantian.user.api.domain.MenuInfo">
+    update RBAC_MENU_INFO
+    set NAM_MENU = #{namMenu,jdbcType=VARCHAR},
+      COD_PARNT_MENU = #{codParntMenu,jdbcType=VARCHAR},
+      COD_MENU_STATE = #{codMenuState,jdbcType=DECIMAL},
+      VLU_MENU_SEQ = #{vluMenuSeq,jdbcType=DECIMAL},
+      COD_MENU_TYPE = #{codMenuType,jdbcType=VARCHAR},
+      TXT_MENU_URL = #{txtMenuUrl,jdbcType=VARCHAR},
+      TXT_MENU_DSCR = #{txtMenuDscr,jdbcType=VARCHAR},
+      VLU_MENU_ICON = #{vluMenuIcon,jdbcType=VARCHAR},
+      IND_DLGT = #{indDlgt,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR}
+    where ID_MENU = #{idMenu,jdbcType=VARCHAR}
+  </update>
+</mapper>

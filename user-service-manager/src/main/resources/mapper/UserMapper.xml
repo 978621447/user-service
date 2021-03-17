@@ -37,7 +37,7 @@
     NUM_PHO_1, NUM_PHO_2, TXT_USER_DSCR, ID_TELLER, PWD_SALT
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from RBAC_USER
     where ID_USER = #{idUser,jdbcType=VARCHAR}
@@ -48,7 +48,94 @@
     from RBAC_USER u
     where u.nam_user = #{userName,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByCondition" resultMap="BaseResultMap">
+      select
+        <include refid="Base_Column_List" />
+      from RBAC_USER u
+      where 1=1
+      <if test="idUser != null">
+        and ID_USER = #{idUser,jdbcType=VARCHAR}
+      </if>
+      <if test="idUsap != null">
+        and ID_USAP = #{idUsap,jdbcType=VARCHAR}
+      </if>
+      <if test="numMob != null">
+        and NUM_MOB = #{numMob,jdbcType=VARCHAR}
+      </if>
+      <if test="txtEml != null">
+        and TXT_EML = #{txtEml,jdbcType=VARCHAR}
+      </if>
+      <if test="idCard != null">
+        and ID_CARD = #{idCard,jdbcType=VARCHAR}
+      </if>
+      <if test="idNotes != null">
+        and ID_NOTES = #{idNotes,jdbcType=VARCHAR}
+      </if>
+      <if test="idStaff != null">
+        and ID_STAFF = #{idStaff,jdbcType=VARCHAR}
+      </if>
+      <if test="namUser != null">
+        and NAM_USER = #{namUser,jdbcType=VARCHAR}
+      </if>
+      <if test="codUserSex != null">
+        and COD_USER_SEX = #{codUserSex,jdbcType=VARCHAR}
+      </if>
+      <if test="codUserState != null">
+        and COD_USER_STATE = #{codUserState,jdbcType=VARCHAR}
+      </if>
+      <if test="vluUserPwd != null">
+        and VLU_USER_PWD = #{vluUserPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="vluUserSeq != null">
+        and VLU_USER_SEQ = #{vluUserSeq,jdbcType=DECIMAL}
+      </if>
+      <if test="codUserType != null">
+        and COD_USER_TYPE = #{codUserType,jdbcType=VARCHAR}
+      </if>
+      <if test="idOrg != null">
+        and ID_ORG = #{idOrg,jdbcType=VARCHAR}
+      </if>
+      <if test="namOrg != null">
+        and NAM_ORG = #{namOrg,jdbcType=VARCHAR}
+      </if>
+      <if test="idCrtor != null">
+        and ID_CRTOR = #{idCrtor,jdbcType=VARCHAR}
+      </if>
+      <if test="namCrtor != null">
+        and NAM_CRTOR = #{namCrtor,jdbcType=VARCHAR}
+      </if>
+      <if test="timeCrt != null">
+        and TIME_CRT = #{timeCrt,jdbcType=VARCHAR}
+      </if>
+      <if test="cntLginFail != null">
+        and CNT_LGIN_FAIL = #{cntLginFail,jdbcType=DECIMAL}
+      </if>
+      <if test="timeLastLginFail != null">
+        and TIME_LAST_LGIN_FAIL = #{timeLastLginFail,jdbcType=VARCHAR}
+      </if>
+      <if test="timeLastMdfPwd != null">
+        and TIME_LAST_MDF_PWD = #{timeLastMdfPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="txtHistPwdLst != null">
+        and TXT_HIST_PWD_LST = #{txtHistPwdLst,jdbcType=VARCHAR}
+      </if>
+      <if test="numPho1 != null">
+        and NUM_PHO_1 = #{numPho1,jdbcType=VARCHAR}
+      </if>
+      <if test="numPho2 != null">
+        and NUM_PHO_2 = #{numPho2,jdbcType=VARCHAR}
+      </if>
+      <if test="txtUserDscr != null">
+        and TXT_USER_DSCR = #{txtUserDscr,jdbcType=VARCHAR}
+      </if>
+      <if test="idTeller != null">
+        and ID_TELLER = #{idTeller,jdbcType=VARCHAR}
+      </if>
+      <if test="pwdSalt != null">
+        and PWD_SALT = #{pwdSalt,jdbcType=VARCHAR}
+      </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from RBAC_USER
     where ID_USER = #{idUser,jdbcType=VARCHAR}
   </delete>

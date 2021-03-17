@@ -1,6 +1,7 @@
 package com.nantian.user.manager.controller;
 
 import com.nantian.user.api.exception.BusinessException;
+import com.nantian.user.manager.domain.UserInfoQO;
 import com.nantian.user.manager.service.IUserService;
 import com.nantian.user.api.domain.JsonResp;
 import com.nantian.user.api.domain.SampleUser;
@@ -35,6 +36,20 @@ public class UserController {
     @GetMapping("searchById")
     public SampleUser searchById(@RequestParam(name = "id") String id) {
         return userService.getSampleUserById(id);
+    }
+
+    @ApiOperation("用户列表接口")
+    @PostMapping("list")
+    public JsonResp list(UserInfoQO userInfoQO) {
+        try {
+            userService.list(userInfoQO);
+        } catch (BusinessException e) {
+            return JsonResp.failure(e.getMessage());
+        } catch (Exception e) {
+            logger.error("获取用户列表异常", e);
+            return JsonResp.failure("获取用户列表异常");
+        }
+        return JsonResp.ok();
     }
 
     @ApiOperation("添加用户的接口")

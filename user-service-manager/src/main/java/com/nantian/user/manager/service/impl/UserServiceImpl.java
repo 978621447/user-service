@@ -1,7 +1,11 @@
 package com.nantian.user.manager.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.nantian.user.api.domain.RoleInfo;
 import com.nantian.user.manager.dao.SampleUserMapper;
 import com.nantian.user.manager.dao.UserMapper;
+import com.nantian.user.manager.domain.UserInfoQO;
 import com.nantian.user.manager.service.IUserService;
 import com.nantian.user.manager.util.MD5Util;
 import com.nantian.user.manager.util.UuidUtil;
@@ -17,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author WangJinYi 2021/3/6
@@ -61,6 +67,19 @@ public class UserServiceImpl implements IUserService {
         loginInfo.setUser(user);
         redisUtil.set(token, loginInfo, 7 * 24 * 60 * 60);
         return token;
+    }
+
+    @Override
+    public Map<String, Object> list(UserInfoQO userInfoQO) {
+        Map<String, Object> result = new HashMap<>();
+        PageHelper.startPage(userInfoQO.getPage(), userInfoQO.getLimit());
+        User queryUser = new User();
+        queryUser.setIdOrg(userInfoQO.getOrgId());
+        queryUser.setNamUser(userInfoQO.getName());
+        PageInfo<User> pageInfo = new PageInfo<>(userMapper.selectByCondition(queryUser));
+        result.put("total", pageInfo.getTotal());
+        result.put("items", pageInfo.getList());
+        return result;
     }
 
     private void validLogin(User loginUser, User user) {
