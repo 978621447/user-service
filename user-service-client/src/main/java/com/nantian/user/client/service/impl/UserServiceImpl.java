@@ -1,5 +1,6 @@
 package com.nantian.user.client.service.impl;
 
+import com.nantian.user.api.util.JSONUtils;
 import com.nantian.user.client.service.IUserService;
 import com.nantian.user.api.domain.LoginInfo;
 import com.nantian.user.api.domain.SampleUser;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public LoginInfo getLoginInfo(String token) {
-        return (LoginInfo) redisUtil.get(token);
+        return JSONUtils.jsonToObj(LoginInfo.class, redisUtil.strGet(token));
     }
 
 }

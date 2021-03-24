@@ -2,6 +2,7 @@ package com.nantian.user.manager.controller;
 
 import com.nantian.user.api.domain.JsonResp;
 import com.nantian.user.api.domain.LoginInfo;
+import com.nantian.user.api.util.JSONUtils;
 import com.nantian.user.api.util.RedisUtil;
 import com.nantian.user.api.exception.*;
 import com.nantian.user.manager.service.IRoleService;
@@ -54,7 +55,7 @@ public class RoleController {
     public JsonResp create(RoleInfoDTO roleInfoDTO, HttpServletRequest request) {
         try {
             String token = request.getHeader("token");
-            LoginInfo loginInfo = (LoginInfo) redisUtil.get(token);
+            LoginInfo loginInfo = JSONUtils.jsonToObj(LoginInfo.class, redisUtil.strGet(token));
             roleService.saveRoleInfo(roleInfoDTO, loginInfo);
             return JsonResp.ok();
         } catch (BusinessException e) {

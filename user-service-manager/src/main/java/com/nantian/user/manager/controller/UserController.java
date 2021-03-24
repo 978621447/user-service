@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @author WangJinYi 2021/3/6
  */
@@ -42,14 +44,16 @@ public class UserController {
     @PostMapping("list")
     public JsonResp list(UserInfoQO userInfoQO) {
         try {
-            userService.list(userInfoQO);
+            Map<String, Object> data = userService.list(userInfoQO);
+            return JsonResp.ok()
+                    .putData("total", data.get("total"))
+                    .putData("items", data.get("items"));
         } catch (BusinessException e) {
             return JsonResp.failure(e.getMessage());
         } catch (Exception e) {
             logger.error("获取用户列表异常", e);
             return JsonResp.failure("获取用户列表异常");
         }
-        return JsonResp.ok();
     }
 
     @ApiOperation("添加用户的接口")
@@ -99,7 +103,7 @@ public class UserController {
     @PostMapping("logout")
     public JsonResp logout(String token) {
         try {
-            if (redisUtil.get(token) == null) {
+            if (redisUtil.strGet(token) == null) {
                 return JsonResp.failure("用户令牌无效，退出登录失败！");
             } else {
                 redisUtil.del(token);

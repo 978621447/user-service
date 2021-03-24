@@ -3,6 +3,7 @@ package com.nantian.user.manager.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nantian.user.api.domain.RoleInfo;
+import com.nantian.user.api.util.JSONUtils;
 import com.nantian.user.manager.dao.SampleUserMapper;
 import com.nantian.user.manager.dao.UserMapper;
 import com.nantian.user.manager.domain.UserInfoQO;
@@ -65,7 +66,7 @@ public class UserServiceImpl implements IUserService {
         String token = generateToken(user);
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setUser(user);
-        redisUtil.set(token, loginInfo, 7 * 24 * 60 * 60);
+        redisUtil.strSet(token, JSONUtils.objToJson(loginInfo), 7 * 24 * 60 * 60);
         return token;
     }
 
